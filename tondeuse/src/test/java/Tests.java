@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import pro.kata.Coordinates;
 import pro.kata.InstructionDecryptor;
 import pro.kata.MowingState;
+import pro.kata.behaviours.EastBehaviour;
 import pro.kata.behaviours.NorthBehaviour;
 
 public class Tests {
@@ -22,6 +23,21 @@ public class Tests {
         try{
             List<MowingState> mowingStates = InstructionDecryptor.readFile("src/test/java/resources/TestFile.txt");
             assertNotNull(mowingStates);
+
+            MowingState state = mowingStates.get(0);
+            assertEquals(state.getXSize(), 5);
+            assertEquals(state.getYSize(), 5);
+            assertEquals(state.getCoordinates(), new Coordinates(1, 2));
+            assertEquals(state.getBehaviour().getClass(), new NorthBehaviour().getClass());
+            assertEquals(state.getInstructions(), "GAGAGAGAA");
+
+            state = mowingStates.get(1);
+            assertEquals(state.getXSize(), 5);
+            assertEquals(state.getYSize(), 5);
+            assertEquals(state.getCoordinates(), new Coordinates(3, 3));
+            assertEquals(state.getBehaviour().getClass(), new EastBehaviour().getClass());
+            assertEquals(state.getInstructions(), "AADAADADDA ");
+
         } catch (IOException e) {
             System.out.println("Error while accessing test file");
             fail(e);
@@ -38,15 +54,17 @@ public class Tests {
         MowingState state = new MowingState(4, 4, new Coordinates(1, 1), new NorthBehaviour(), "ADGGADGGADGGADGG");
         state.run();
         assertEquals(state.getCoordinates(), new Coordinates(1, 1));
-        assertEquals(state.getBehaviour(), new NorthBehaviour());
-    }
+        assertEquals(state.getBehaviour().getClass(), new NorthBehaviour().getClass());
 
-    @Test
-    /*
-     * In this test we send wrong instructions to a mower that makes it leave the confines of the grid
-     * Dans ce test nous faisons sortir la tondeuse de la pelouse pour vérifier qu'une erreur est correctement levée
-     */
-    public void leaveConfines(){
+        //Testing the given examples to check correct execution
+        MowingState state1 = new MowingState(5, 5, new Coordinates(1, 2), new NorthBehaviour(), "GAGAGAGAA");
+        state1.run();
+        assertEquals(state1.getCoordinates(), new Coordinates(1, 3));
+        assertEquals(state1.getBehaviour().getClass(), new NorthBehaviour().getClass());
 
+        MowingState state2 = new MowingState(5, 5, new Coordinates(3, 3), new EastBehaviour(), "AADAADADDA");
+        state2.run();
+        assertEquals(state2.getCoordinates(), new Coordinates(5, 1));
+        assertEquals(state2.getBehaviour().getClass(), new EastBehaviour().getClass());
     }
 } 
