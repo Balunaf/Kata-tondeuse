@@ -8,4 +8,6 @@ public interface Behaviour {
     public Behaviour turnRightBehaviour();
 
     public void moveForward(Coordinates coord);
+
+    public boolean checkForwardMove(Coordinates coord, Integer dimensionX, Integer dimensionY);
 }

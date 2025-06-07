@@ -6,20 +6,22 @@ public class SouthBehaviour implements Behaviour{
 
     @Override
     public Behaviour turnLeftBehaviour() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'turnLeftBehaviour'");
+        return new EastBehaviour();
     }
 
     @Override
     public Behaviour turnRightBehaviour() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'turnRightBehaviour'");
+        return new WestBehaviour();
     }
 
     @Override
+    public boolean checkForwardMove(Coordinates coord, Integer dimensionX, Integer dimensionY){
+        return (coord.getY()-1 >= 0);
+    };
+
+    @Override
     public void moveForward(Coordinates coord) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'moveForward'");
+        coord.setY(coord.getY()-1);
     }
     
     

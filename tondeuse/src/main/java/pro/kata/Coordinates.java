@@ -28,4 +28,11 @@ public class Coordinates {
     public String toString(){
         return x+" "+y;
     }
+
+    public boolean equals(Object obj){
+        if(!(obj instanceof Coordinates))
+            return false;
+        Coordinates coord = (Coordinates) obj;
+        return (coord.getX() == getX()) && (coord.getY() == getY());
+    }
 }

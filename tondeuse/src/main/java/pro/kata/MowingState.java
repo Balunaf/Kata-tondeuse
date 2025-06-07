@@ -18,7 +18,27 @@ public class MowingState {
     }
 
     public void run(){
+        for(String string : instructions.split("")){
+            switch (string) {
+                case "A":
+                    if(checkForwardMove()){
+                        moveForward();}
+                    break;
+                case "D":
+                    turnRightBehaviour();
+                    break;
+                case "G":
+                    turnLeftBehaviour();
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+    }
 
+    private boolean checkForwardMove(){
+        return currentBehaviour.checkForwardMove(coordinates, maximumX, maximumY);
     }
 
     private void moveForward(){
@@ -26,11 +46,11 @@ public class MowingState {
     }
 
     private void turnLeftBehaviour(){
-        currentBehaviour = currentBehaviour.turnLeftBehaviour();
+        setBehaviour(currentBehaviour.turnLeftBehaviour());
     }
 
     private void turnRightBehaviour(){
-        currentBehaviour = currentBehaviour.turnRightBehaviour();
+        setBehaviour(currentBehaviour.turnRightBehaviour());
     }
 
     public String toString(){
